@@ -1,0 +1,72 @@
+﻿Rank,DBMS,Database Model,Score (Sep 2024),Change (Sep 2024),Change (Aug 2024),Change (Sep 2023)
+1,Oracle,Relational, Multi-model info,1286.59,+28.11,+45.72
+2,MySQL,Relational, Multi-model info,1029.49,+2.63,-82.00
+3,Microsoft SQL Server,Relational, Multi-model info,807.76,-7.41,-94.45
+4,PostgreSQL,Relational, Multi-model info,644.36,+6.97,+23.61
+5,MongoDB,Document, Multi-model info,410.24,-10.74,-29.18
+6,Redis,Key-value, Multi-model info,149.43,-3.28,-14.26
+7,Snowflake,Relational,133.72,-2.25,+12.83
+8,Elasticsearch,Search engine, Multi-model info,128.79,-1.04,-10.20
+9,IBM Db2,Relational, Multi-model info,123.05,+0.04,-13.67
+10,SQLite,Relational,103.35,-1.44,-25.85
+11,Apache Cassandra,Wide column, Multi-model info,98.94,+1.94,-11.11
+12,Microsoft Access,Relational,93.76,-2.61,-34.81
+13,Splunk,Search engine,93.02,-3.08,+1.63
+14,Databricks,Multi-model info,84.24,-0.22,+9.06
+15,MariaDB,Relational, Multi-model info,83.44,-3.09,-17.01
+16,Microsoft Azure SQL Database,Relational, Multi-model info,72.95,-2.08,-9.78
+17,Amazon DynamoDB,Multi-model info,70.06,+1.15,-10.85
+18,Apache Hive,Relational,53.07,-2.17,-18.76
+19,Google BigQuery,Relational,52.67,-2.86,-3.80
+20,FileMaker,Relational,45.20,-1.47,-8.40
+
+Number of systems,September 2024
+193,Commercial License
+230,Open Source License
+
+Popularity Scores,September 2024
+50.4%,Commercial License
+49.6%,Open Source License
+
+Historical Trend,Ranking Scores (%)
+2013,30%
+2014,32%
+2015,34%
+2016,36%
+2017,38%
+2018,40%
+2019,42%
+2020,44%
+2021,46%
+2022,48%
+2023,50%
+2024,52%
+
+Historical Trend,Ranking Scores (%)
+2013,30%
+2014,32%
+2015,34%
+2016,36%
+2017,38%
+2018,40%
+2019,42%
+2020,44%
+2021,46%
+2022,48%
+2023,50%
+2024,52%
+
+Top Systems by License,September 2024
+Commercial License,Score,Overall Rank
+Oracle,1287,1
+Microsoft SQL Server,808,3
+Snowflake,134,7
+IBM Db2,123,9
+Microsoft Access,94,12
+
+Open Source License,Score,Overall Rank
+MySQL,1029,2
+PostgreSQL,644,4
+MongoDB,410,5
+Redis,149,6
+Elasticsearch,129,8
