@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from fpdf import FPDF
 
 # Datos extraídos
 dbms = [
@@ -28,6 +29,7 @@ plt.title('Puntajes de los Sistemas de Gestión de Bases de Datos (Sep 2024)')
 plt.gca().invert_yaxis()  # Invertir el eje y para mostrar el DBMS con mayor puntaje en la parte superior
 plt.grid(axis='x')
 plt.tight_layout()
+plt.savefig("dbms_popularity.png")  # Guardar imagen de la gráfica de popularidad
 plt.show()
 
 # Datos de tendencias históricas
@@ -50,4 +52,48 @@ plt.xticks(years)
 plt.grid()
 plt.legend()  # Leyenda para la línea de regresión
 plt.tight_layout()
+plt.savefig("dbms_trends.png")  # Guardar imagen de la gráfica de tendencias históricas
 plt.show()
+
+# Crear PDF
+pdf = FPDF()
+pdf.set_auto_page_break(auto=True, margin=15)
+pdf.add_page()
+pdf.set_font("Arial", size=12)
+
+# Añadir contenido al PDF
+pdf.set_font("Arial", "B", 14)
+pdf.cell(0, 10, "Hipótesis", ln=True, align="C")
+pdf.ln(10)
+pdf.set_font("Arial", size=12)
+pdf.multi_cell(0, 10, (
+    "1. Hipótesis nula (H0): No hay correlación entre los puntajes de popularidad actuales "
+    "de los DBMS y sus tendencias históricas de puntajes de clasificación. Esto significa que los "
+    "puntajes actuales no están relacionados con las tendencias pasadas.\n"
+    "2. Hipótesis alternativa (H1): Existe una correlación entre los puntajes de popularidad actuales "
+    "de los DBMS y sus tendencias históricas de puntajes de clasificación. Esto implica que a medida que "
+    "los puntajes de popularidad cambian, las tendencias históricas también tienden a cambiar de manera significativa.\n"
+))
+
+pdf.set_font("Arial", "B", 14)
+pdf.cell(0, 10, "Conclusión", ln=True, align="C")
+pdf.ln(10)
+pdf.set_font("Arial", size=12)
+pdf.multi_cell(0, 10, (
+    "Después de ejecutar el código y observar el coeficiente de correlación, se podrá aceptar o rechazar "
+    "la hipótesis nula. Si el coeficiente es significativamente diferente de cero, se puede concluir que hay "
+    "una relación entre los puntajes de popularidad actuales y las tendencias históricas de puntajes de clasificación, "
+    "lo que podría indicar que los DBMS con mejores puntajes actuales tienden a tener tendencias históricas más positivas.\n"
+))
+
+pdf.add_page()
+pdf.set_font("Arial", "B", 14)
+pdf.cell(0, 10, "Gráficos", ln=True, align="C")
+pdf.ln(10)
+pdf.image("dbms_popularity.png", x=10, y=30, w=190)
+pdf.ln(100)
+pdf.image("dbms_trends.png", x=10, y=30, w=190)
+
+# Guardar el PDF
+pdf.output("DBMS_Analysis.pdf")
+print("PDF generado: DBMS_Analysis.pdf")

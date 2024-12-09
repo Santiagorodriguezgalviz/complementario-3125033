@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from fpdf import FPDF
 
 # Datos extraídos
 online_ides = [
@@ -29,7 +30,9 @@ plt.title('Participación de IDEs en Línea en el Mercado')
 plt.gca().invert_yaxis()  # Invertir el eje y para mostrar el IDE más popular en la parte superior
 plt.grid(axis='x')
 plt.tight_layout()
-plt.show()
+
+# Guardar la gráfica de participación como imagen
+plt.savefig("share_bar_chart.png")
 
 # Crear gráfico de regresión lineal
 x = np.arange(len(online_ides))  # Índices de los IDEs
@@ -48,7 +51,46 @@ plt.title('Regresión Lineal de Participación de IDEs en Línea')
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.legend()
 plt.tight_layout()
-plt.show()
 
-# Mostrar ecuación de la línea
-print(f"Ecuación de la línea: y = {coeffs[0]:.3f}x + {coeffs[1]:.3f}")
+# Guardar el gráfico de regresión como imagen
+plt.savefig("regression_line_plot.png")
+
+# Crear el documento PDF
+pdf = FPDF()
+pdf.set_auto_page_break(auto=True, margin=15)
+pdf.add_page()
+
+# Título
+pdf.set_font('Arial', 'B', 16)
+pdf.cell(200, 10, txt="Análisis de Participación de IDEs en Línea y Regresión Lineal", ln=True, align='C')
+
+# Agregar la gráfica de participación como imagen al PDF
+pdf.ln(10)
+pdf.image("share_bar_chart.png", x=10, y=30, w=180)
+
+# Agregar el gráfico de regresión lineal como imagen al PDF
+pdf.ln(100)
+pdf.image("regression_line_plot.png", x=10, y=30, w=180)
+
+# Hipótesis
+pdf.ln(190)
+pdf.set_font('Arial', '', 12)
+pdf.multi_cell(0, 10, txt="""Hipótesis:
+
+1. Hipótesis nula (H0): No hay correlación entre la participación de los IDEs en línea y su popularidad. Esto significa que los cambios en la participación no están relacionados con la popularidad de los IDEs.
+
+2. Hipótesis alternativa (H1): Existe una correlación entre la participación de los IDEs en línea y su popularidad. Esto implica que a medida que la participación cambia, la popularidad de los IDEs también tiende a cambiar de manera significativa.
+""")
+
+# Conclusión
+pdf.ln(10)
+pdf.multi_cell(0, 10, txt="""Conclusión:
+
+Después de ejecutar el código y observar el coeficiente de correlación, se podrá aceptar o rechazar la hipótesis nula. Si el coeficiente es significativamente diferente de cero, se puede concluir que hay una relación entre la participación de los IDEs en línea y su popularidad, lo que podría indicar que los IDEs más populares tienden a tener una mayor participación en el mercado.
+""")
+
+# Guardar el PDF
+pdf_output = "ide_participation_analysis_report.pdf"
+pdf.output(pdf_output)
+
+print(f"El análisis ha sido guardado en: {pdf_output}")

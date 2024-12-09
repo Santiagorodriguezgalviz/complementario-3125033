@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from fpdf import FPDF
 
 # Datos extraídos
 languages = [
@@ -35,8 +36,6 @@ years = np.array([2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024])
 
 # Crear la gráfica con líneas de regresión
 plt.figure(figsize=(16, 10))
-
-# Paleta de colores más suave
 colors = plt.cm.tab20(np.linspace(0, 1, len(languages)))
 
 for i, language in enumerate(languages):
@@ -46,8 +45,7 @@ for i, language in enumerate(languages):
     # Línea de regresión lineal
     coeffs = np.polyfit(years, data[i], 1)
     line = np.poly1d(coeffs)
-    plt.plot(years, line(years), color=colors[i], linestyle='--', 
-             label=f'{language} (Tendencia lineal)')
+    plt.plot(years, line(years), color=colors[i], linestyle='--', label=f'{language} (Tendencia lineal)')
 
 # Títulos y etiquetas
 plt.title('Tendencia de Adopción de Lenguajes de Programación (2017-2024)\nAnálisis de Regresión Lineal', fontsize=15)
@@ -57,4 +55,46 @@ plt.xticks(years, rotation=45)
 plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.tight_layout()
+
+# Guardar gráfico como imagen
+plt.savefig("languages_trend.png")
 plt.show()
+
+# Crear PDF
+pdf = FPDF()
+pdf.set_auto_page_break(auto=True, margin=15)
+pdf.add_page()
+pdf.set_font("Arial", size=12)
+
+# Añadir contenido al PDF
+pdf.set_font("Arial", "B", 14)
+pdf.cell(0, 10, "Hipótesis", ln=True, align="C")
+pdf.ln(10)
+pdf.set_font("Arial", size=12)
+pdf.multi_cell(0, 10, (
+    "1. Hipótesis nula (H0): No hay correlación entre el año y el porcentaje "
+    "de adopción de los lenguajes de programación.\n"
+    "2. Hipótesis alternativa (H1): Existe una correlación entre el año y el "
+    "porcentaje de adopción de los lenguajes de programación.\n"
+))
+
+pdf.set_font("Arial", "B", 14)
+pdf.cell(0, 10, "Conclusión", ln=True, align="C")
+pdf.ln(10)
+pdf.set_font("Arial", size=12)
+pdf.multi_cell(0, 10, (
+    "Después de ejecutar el análisis, se observa que la correlación varía según "
+    "el lenguaje. Los lenguajes como Python muestran un incremento constante en adopción, "
+    "mientras que otros, como PHP, han disminuido. Esto respalda parcialmente la hipótesis "
+    "alternativa (H1)."
+))
+
+pdf.add_page()
+pdf.set_font("Arial", "B", 14)
+pdf.cell(0, 10, "Gráfico", ln=True, align="C")
+pdf.ln(10)
+pdf.image("languages_trend.png", x=10, y=30, w=190)
+
+# Guardar PDF
+pdf.output("AdopcionLenguajes.pdf")
+print("PDF generado: AdopcionLenguajes.pdf")
